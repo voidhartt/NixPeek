@@ -27,6 +27,24 @@ Core capabilities:
 
 ## Install / Build
 
+Install with Nix flakes from GitHub:
+
+```bash
+nix profile install github:voidhartt/NixPeek
+```
+
+Run directly without installing:
+
+```bash
+nix run github:voidhartt/NixPeek
+```
+
+Build from the local flake:
+
+```bash
+nix build .#nixpeek
+```
+
 Build from source:
 
 ```bash
