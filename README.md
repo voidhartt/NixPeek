@@ -33,10 +33,22 @@ Install with Nix flakes from GitHub:
 nix profile install github:voidhartt/NixPeek
 ```
 
+If flakes are not enabled globally:
+
+```bash
+nix --extra-experimental-features "nix-command flakes" profile install github:voidhartt/NixPeek
+```
+
 Run directly without installing:
 
 ```bash
 nix run github:voidhartt/NixPeek
+```
+
+Pin to a specific revision:
+
+```bash
+nix profile install github:voidhartt/NixPeek?rev=c8f123b22b4277120b25ac8b460008b9a6928d5e
 ```
 
 Build from the local flake:
