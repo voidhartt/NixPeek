@@ -2,6 +2,13 @@
 
 NixPeek is a cross-platform TUI for searching Nix packages with live suggestions and an attrPath-first workflow.
 
+## Install Navigation
+
+- [Declarative install (Home Manager / NixOS)](#declarative-install-home-manager--nixos)
+- [Imperative install (Nix profile)](#imperative-install-nix-profile)
+- [Run without installing](#run-without-installing)
+- [Build from source](#build-from-source)
+
 ## Overview
 
 NixPeek is designed for fast package discovery while keeping declarative configuration workflows in mind.
@@ -27,6 +34,46 @@ Core capabilities:
 
 ## Install / Build
 
+### Declarative install (Home Manager / NixOS)
+
+Add `NixPeek` as a flake input in your config:
+
+```nix
+# flake.nix
+inputs.nixpeek = {
+  url = "github:voidhartt/NixPeek";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
+```
+
+Then add the package to your Home Manager or NixOS package list:
+
+```nix
+# Home Manager module
+{ pkgs, inputs, ... }:
+{
+  home.packages = [
+    inputs.nixpeek.packages.${pkgs.system}.default
+  ];
+}
+```
+
+Apply your configuration:
+
+```bash
+home-manager switch --flake .#<profile>
+```
+
+For NixOS modules, use:
+
+```nix
+environment.systemPackages = [
+  inputs.nixpeek.packages.${pkgs.system}.default
+];
+```
+
+### Imperative install (Nix profile)
+
 Install with Nix flakes from GitHub:
 
 ```bash
@@ -38,6 +85,8 @@ If flakes are not enabled globally:
 ```bash
 nix --extra-experimental-features "nix-command flakes" profile install github:voidhartt/NixPeek
 ```
+
+### Run without installing
 
 Run directly without installing:
 
@@ -56,6 +105,8 @@ Build from the local flake:
 ```bash
 nix build .#nixpeek
 ```
+
+### Build from source
 
 Build from source:
 
